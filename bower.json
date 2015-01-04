@@ -1,0 +1,22 @@
+{
+  "name": "casper-crawl",
+  "version": "0.0.1",
+  "homepage": "https://github.com/jleonard/casper-crawl",
+  "authors": [
+    "jleonard <thejohnleonard@gmail.com>"
+  ],
+  "description": "crawls one or more pages on your site and tests for broken anchor, link, script and image links",
+  "main": "crawl.sj",
+  "keywords": [
+    "casper",
+    "test"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
