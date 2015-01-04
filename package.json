@@ -1,0 +1,24 @@
+{
+  "name": "casper-crawl",
+  "version": "0.0.2",
+  "description": "crawls one or more pages on your site and tests for broken anchor, link, script and image links",
+  "main": "crawl.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jleonard/casper-crawl.git"
+  },
+  "keywords": [
+    "casper",
+    "crawl",
+    "test"
+  ],
+  "author": "jleonard <thejohnleonard@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jleonard/casper-crawl/issues"
+  },
+  "homepage": "https://github.com/jleonard/casper-crawl"
+}
