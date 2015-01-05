@@ -1,6 +1,6 @@
 # Crawl for CasperJS
 
-A [CasperJS](http://casperjs.org/) script that crawls one or more pages on your site and tests for broken anchor, link, script and image links.
+A [CasperJS](http://casperjs.org/) script that crawls one or more pages on your site and tests for broken ``<a>``, ``<link>``, ``<script>`` and ``<img>`` links.
 
 ## Install Dependencies
 Install [PhantomJs](http://phantomjs.org/) and [CasperJs](http://casperjs.org/)
@@ -19,7 +19,10 @@ casperjs crawl.js http://my-website.com
 ```bash
 casperjs crawl.js http://my-website.com --pages=about,contact,careers/apply
 ```  
-This will iterate over ``http://my-website.com/about``, ``http://my-website.com/contact`` and ``http://my-website.com/careers/apply`` and test for broken links on each page.  
+This will test for broken urls on 
+* ``http://my-website.com/about``  
+* ``http://my-website.com/contact``  
+* ``http://my-website.com/careers/apply``  
 
 ## Passing in http authentication variables
 ```bash
