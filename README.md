@@ -2,6 +2,11 @@
 
 A [CasperJS](http://casperjs.org/) script that crawls one or more pages on your site and tests for broken anchor, link, script and image links.
 
+## Installation  
+```bash
+npm install --save casper-crawl
+```
+
 ## Basic Usage : Testing a single page
 ```bash
 casperjs crawl.js http://my-website.com
