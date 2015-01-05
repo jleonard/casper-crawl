@@ -2,6 +2,9 @@
 
 A [CasperJS](http://casperjs.org/) script that crawls one or more pages on your site and tests for broken anchor, link, script and image links.
 
+## Install Dependencies
+Install [PhantomJs](http://phantomjs.org/) and [CasperJs](http://casperjs.org/)
+
 ## Installation  
 ```bash
 npm install --save casper-crawl
