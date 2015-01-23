@@ -28,3 +28,9 @@ This will test for broken urls on
 ```bash
 casperjs crawl.js http://my-website.com --httpUser=username --httpPassword=password
 ```
+
+## Dealing with ssl issues over https
+
+```bash
+casperjs crawl.js --web-security=no --ignore-ssl-errors=true https://localhost:4000
+```
