@@ -72,6 +72,9 @@ casper.start().eachThen(crawlUrls, function(response) {
     if(response.status === 200){
       // get the links
       var links = this.evaluate(getLinks);
+      var color = 'INFO';
+      this.echo('Checking '+links.length+' pages',color);
+      this.echo('------------------------------------------',color);
       casper.each(links,function(self,link){
         if(link && link.indexOf('#') !== 0){
           if(link.indexOf('http') !== 0){
@@ -82,6 +85,8 @@ casper.start().eachThen(crawlUrls, function(response) {
       });
       // get the images
       links = this.evaluate(getImages);
+      this.echo('Checking '+links.length+' images',color);
+      this.echo('------------------------------------------',color);
       casper.each(links,function(self,link){
         if(link){
           if(link.indexOf('http') !== 0){
@@ -92,6 +97,8 @@ casper.start().eachThen(crawlUrls, function(response) {
       });
       // get the css
       links = this.evaluate(getCss);
+      this.echo('Checking '+links.length+' css files',color);
+      this.echo('------------------------------------------',color);
       casper.each(links,function(self,link){
         if(link){
           if(link.indexOf('http') !== 0){
@@ -102,6 +109,8 @@ casper.start().eachThen(crawlUrls, function(response) {
       });
       // get the js
       links = this.evaluate(getJs);
+      this.echo('Checking '+links.length+' .js files',color);
+      this.echo('------------------------------------------',color);
       casper.each(links,function(self,link){
         if(link){
           if(link.indexOf('http') !== 0){
