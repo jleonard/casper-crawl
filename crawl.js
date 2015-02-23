@@ -8,12 +8,31 @@ var authPassword;
 var crawlUrls = [];
 var borked = [];
 
+var crawlCounts = {
+  pages: 0,
+  css : 0,
+  js : 0,
+  images : 0
+};
+
 var options = {
   pageSettings : {
     userName : authUser,
     password : authPassword,
     loadImages: false
   }
+}
+
+function uniqueValues(a){
+   var u = {}, a = [];
+   for(var i = 0, l = this.length; i < l; ++i){
+      if(u.hasOwnProperty(this[i])) {
+         continue;
+      }
+      a.push(this[i]);
+      u[this[i]] = 1;
+   }
+   return a;
 }
 
 function getLinks() {
@@ -60,7 +79,10 @@ if(casper.cli.has(0)){
       return str;
     }) 
   : [];
-  crawlUrls.concat(arr);
+  //console.log('arr is',arr);
+  crawlUrls = crawlUrls.concat(arr);
+  //console.log('crawlUrls are ',crawlUrls);
+  crawlCounts.pages = crawlUrls.length;
 }else{
   casper.die('No url specified : usage = casperjs crawl.js http://url-to-crawl.com --pages=one/,two/,three/ --httpUser=User --httpPassword=Password',1);
   casper.exit();
@@ -68,61 +90,78 @@ if(casper.cli.has(0)){
 
 casper.start().eachThen(crawlUrls, function(response) {
   this.thenOpen(response.data, function(response) {
-    console.log('Opened', response.url,response.status);
+    var color = 'INFO';
+    this.echo('Inspecting '+response.url,color);
     if(response.status === 200){
       // get the links
       var links = this.evaluate(getLinks);
-      var color = 'INFO';
-      this.echo('Checking '+links.length+' pages',color);
-      this.echo('------------------------------------------',color);
+      
       casper.each(links,function(self,link){
         if(link && link.indexOf('#') !== 0){
           if(link.indexOf('http') !== 0){
             link = link.indexOf('/') === 0 ? siteRoot + link : response.data + link;
           }
           crawlUrls.push(link);
+          crawlCounts.pages++;
         }
       });
       // get the images
       links = this.evaluate(getImages);
-      this.echo('Checking '+links.length+' images',color);
-      this.echo('------------------------------------------',color);
       casper.each(links,function(self,link){
         if(link){
           if(link.indexOf('http') !== 0){
             link = link.indexOf('/') === 0 ? siteRoot + link : response.data + link;
           }
           crawlUrls.push(link);
+          crawlCounts.images++;
         }
       });
       // get the css
       links = this.evaluate(getCss);
-      this.echo('Checking '+links.length+' css files',color);
-      this.echo('------------------------------------------',color);
       casper.each(links,function(self,link){
         if(link){
           if(link.indexOf('http') !== 0){
             link = link.indexOf('/') === 0 ? siteRoot + link : response.data + link;
           }
           crawlUrls.push(link);
+          crawlCounts.css++;
         }
       });
       // get the js
       links = this.evaluate(getJs);
-      this.echo('Checking '+links.length+' .js files',color);
-      this.echo('------------------------------------------',color);
       casper.each(links,function(self,link){
         if(link){
           if(link.indexOf('http') !== 0){
             link = link.indexOf('/') === 0 ? siteRoot + link : response.data + link;
           }
           crawlUrls.push(link);
+          crawlCounts.js++;
         }
       });
     }else{
       casper.echo(response.data + ' returned ' + response.status ,'WARNING');
     }
   });
+});
+
+casper.then(function(){
+
+  this.echo(' ',color);
+
+  var color = 'INFO';
+
+  this.echo('Checking '+crawlCounts.pages+' pages',color);
+  this.echo('------------------------------------------',color);
+
+  this.echo('Checking '+crawlCounts.css+' css files',color);
+  this.echo('------------------------------------------',color);
+
+  this.echo('Checking '+crawlCounts.js+' .js files',color);
+  this.echo('------------------------------------------',color);
+
+  this.echo('Checking '+crawlCounts.images+' images',color);
+  this.echo('------------------------------------------',color);
+
 });
 
 casper.then(function(){
